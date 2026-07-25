@@ -13,4 +13,4 @@ inline pros::Motor liftB(14, pros::v5::MotorGears::red, pros::v5::MotorUnits::de
 inline pros::Motor intake(15, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 
 inline ez::Piston clawVertical(6, false);
-inline ez::Piston clawClamp(7, false);
+inline ez::Piston clawClamp(7, true);

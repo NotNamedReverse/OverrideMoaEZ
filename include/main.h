@@ -47,6 +47,7 @@
 #include "autons.hpp"
 #include "subsystems.hpp"
 
+#include "claw.hpp"
 #include "lift.hpp"
 
 
