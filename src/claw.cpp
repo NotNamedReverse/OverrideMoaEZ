@@ -8,12 +8,12 @@ namespace claw{
 
     void opControl()
     {
-        if (master.get_digital(DIGITAL_Y))
+        if (master.get_digital_new_press(DIGITAL_Y))
         {
             clawClamp.set(!clawClamp.get());
         }
 
-        if (master.get_digital(DIGITAL_RIGHT))
+        if (master.get_digital_new_press(DIGITAL_RIGHT))
         {
             clawVertical.set(!clawVertical.get());
         }

@@ -7,6 +7,12 @@ namespace lift{
         liftB.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     }
 
+    void setPosition(double deg, int speed)
+    {
+        liftA.move_absolute(deg, speed);
+        liftB.move_absolute(deg, speed);
+    }
+
     void opControl()
     {
         if (master.get_digital(DIGITAL_R2))

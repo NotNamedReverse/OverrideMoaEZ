@@ -15,13 +15,12 @@ const int SWING_SPEED = 110;
 ///
 void default_constants() {
   // P, I, D, and Start I
-  chassis.pid_drive_constants_set(15.0, 0.06, 125.5);         // Fwd/rev constants, used for odom and non odom motions
+  chassis.pid_drive_constants_set(15.0, 0.06, 125.5);        // Fwd/rev constants, used for odom and non odom motions
   chassis.pid_heading_constants_set(11.0, 0.0, 30.0);        // Holds the robot straight while going forward without odom
-  chassis.pid_turn_constants_set(6, 0.02, 55.0, 0.0);     // Turn in place constants
+  chassis.pid_turn_constants_set(6, 0.02, 55.0, 0.0);        // Turn in place constants
   chassis.pid_swing_constants_set(6.0, 0.0, 65.0);           // Swing constants
   chassis.pid_odom_angular_constants_set(6.5, 0.0, 52.5);    // Angular control for odom motions
   chassis.pid_odom_boomerang_constants_set(5.8, 0.0, 32.5);  // Angular control for boomerang motions
-
 
   // Exit conditions
   chassis.pid_turn_exit_condition_set(90_ms, 3_deg, 250_ms, 7_deg, 500_ms, 500_ms);
@@ -332,7 +331,7 @@ void measure_offsets() {
   if (chassis.odom_tracker_right != nullptr) chassis.odom_tracker_right->reset();
   if (chassis.odom_tracker_back != nullptr) chassis.odom_tracker_back->reset();
   if (chassis.odom_tracker_front != nullptr) chassis.odom_tracker_front->reset();
-  
+
   for (int i = 0; i < iterations; i++) {
     // Reset pid targets and get ready for running an auton
     chassis.pid_targets_reset();
@@ -381,3 +380,50 @@ void measure_offsets() {
 // Make your own autonomous functions here!
 // . . .
 
+void auto1() {
+  // drive forward and back to let the togglers down
+
+  chassis.pid_drive_set(10_in, 50);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(-16_in, 127);
+  chassis.pid_wait();
+
+  // turn the toggles to our color
+
+  for (int i = 0; i < 2; i++) {
+    chassis.pid_drive_set(4_in, 127);
+    chassis.pid_wait_quick_chain();
+
+    chassis.pid_drive_set(-6_in, 127);
+    chassis.pid_wait();
+  }
+
+
+  // move forward and turn towards the right blue goal
+
+  chassis.pid_drive_set(16, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-90, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(30, 127);
+
+  pros::delay(200);
+
+  // drive to align with goal
+  chassis.pid_drive_set(-14, 70);
+  chassis.pid_wait();
+
+  lift::setPosition(0, 127);
+  pros::delay(400);
+  
+  chassis.pid_drive_set(8, 127);
+  chassis.pid_wait();
+  
+  // drive and turn
+
+  chassis.pid_turn_set(-30, 127);
+  chassis.pid_wait();
+}
