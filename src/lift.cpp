@@ -17,8 +17,8 @@ namespace lift{
     {
         if (master.get_digital(DIGITAL_R2))
         {
-            liftA.move(100);
-            liftB.move(100);
+            liftA.move(50);
+            liftB.move(50);
         }
         else if (master.get_digital(DIGITAL_L2))
         {

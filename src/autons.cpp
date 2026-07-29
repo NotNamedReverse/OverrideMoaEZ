@@ -15,7 +15,7 @@ const int SWING_SPEED = 110;
 ///
 void default_constants() {
   // P, I, D, and Start I
-  chassis.pid_drive_constants_set(15.0, 0.06, 125.5);        // Fwd/rev constants, used for odom and non odom motions
+  chassis.pid_drive_constants_set(15.0, 0.06, 122);          // Fwd/rev constants, used for odom and non odom motions
   chassis.pid_heading_constants_set(11.0, 0.0, 30.0);        // Holds the robot straight while going forward without odom
   chassis.pid_turn_constants_set(6, 0.02, 55.0, 0.0);        // Turn in place constants
   chassis.pid_swing_constants_set(6.0, 0.0, 65.0);           // Swing constants
@@ -381,49 +381,221 @@ void measure_offsets() {
 // . . .
 
 void auto1() {
-  // drive forward and back to let the togglers down
-
-  chassis.pid_drive_set(10_in, 50);
+  chassis.pid_drive_set(4, 127);
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_drive_set(-16_in, 127);
+  chassis.pid_drive_set(-4, 127);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_swing_set(ez::LEFT_SWING, -40_deg, 127);
   chassis.pid_wait();
 
-  // turn the toggles to our color
-
-  for (int i = 0; i < 2; i++) {
-    chassis.pid_drive_set(4_in, 127);
-    chassis.pid_wait_quick_chain();
-
-    chassis.pid_drive_set(-6_in, 127);
-    chassis.pid_wait();
-  }
-
-
-  // move forward and turn towards the right blue goal
-
-  chassis.pid_drive_set(16, 127);
+  chassis.pid_turn_set(-35, 127);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(-90, 127);
+  // move forward and turn towards the right goal
+
+  chassis.pid_drive_set(15.5, 127);
   chassis.pid_wait();
 
-  lift::setPosition(30, 127);
-
-  pros::delay(200);
-
-  // drive to align with goal
-  chassis.pid_drive_set(-14, 70);
+  chassis.pid_turn_set(-123, 127);
   chassis.pid_wait();
 
-  lift::setPosition(0, 127);
+  lift::setPosition(-30, 127);
+  clawVertical.set(true);
+
+  pros::delay(500);
+
+  // drive into the goal
+
+  chassis.pid_drive_set(-10, 70);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(2, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(10, 127);
+
+  pros::delay(500);
+
+  clawClamp.set(true);
+
+  chassis.pid_drive_set(5, 127);
+  chassis.pid_wait();
+
+  // turn for the pin
+
+  chassis.pid_turn_set(-70, 127);
+  chassis.pid_wait();
+
+  // drive to get the pin on the wall
+  chassis.pid_drive_set(-18, 100);
+  chassis.pid_wait();
+
+  clawClamp.set(false);
+  lift::setPosition(-2, 127);
+
+  // drive back to goal
+
+  chassis.pid_drive_set(17, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(-38, 127);
+  pros::delay(500);
+
+  chassis.pid_turn_set(-123, 100);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-6, 100);
+  chassis.pid_wait();
+
+  lift::setPosition(-2, 127);
+  pros::delay(300);
+
+  clawClamp.set(true);
+
+  // go back to pick up cone & pin
+
+  chassis.pid_drive_set(12, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-173, 100);
+  chassis.pid_wait();
+
+  lift::setPosition(15, 127);
+
+  // drive to the cup
+
+  chassis.pid_drive_set(-20, 68);
+  chassis.pid_wait_quick_chain();
+
+  // pick up cup pin
+
+  clawClamp.set(false);
+
+  lift::setPosition(-10, 127);
+  pros::delay(300);
+
+  chassis.pid_drive_set(22, 80);
+  chassis.pid_wait_quick();
+  
+  lift::setPosition(-50, 127);
   pros::delay(400);
-  
-  chassis.pid_drive_set(8, 127);
-  chassis.pid_wait();
-  
-  // drive and turn
 
-  chassis.pid_turn_set(-30, 127);
+  chassis.pid_turn_set(-123, 100);
   chassis.pid_wait();
+
+  
+  chassis.pid_drive_set(-12, 127);
+  chassis.pid_wait(); 
+}
+
+void auto1Backup() {
+  chassis.pid_drive_set(4, 127);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(-4, 127);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_swing_set(ez::LEFT_SWING, -40_deg, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-35, 127);
+  chassis.pid_wait();
+
+  // move forward and turn towards the right goal
+
+  chassis.pid_drive_set(15.5, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-123, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(-30, 127);
+  clawVertical.set(true);
+
+  pros::delay(500);
+
+  // drive into the goal
+
+  chassis.pid_drive_set(-10, 70);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(2, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(10, 127);
+
+  pros::delay(500);
+
+  clawClamp.set(true);
+
+  chassis.pid_drive_set(5, 127);
+  chassis.pid_wait();
+
+  // turn for the pin
+
+  chassis.pid_turn_set(-70, 127);
+  chassis.pid_wait();
+
+  // drive to get the pin on the wall
+  chassis.pid_drive_set(-18, 100);
+  chassis.pid_wait();
+
+  clawClamp.set(false);
+  lift::setPosition(-2, 127);
+
+  // drive back to goal
+
+  chassis.pid_drive_set(17, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(-38, 127);
+  pros::delay(500);
+
+  chassis.pid_turn_set(-123, 100);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-6, 100);
+  chassis.pid_wait();
+
+  lift::setPosition(-2, 127);
+  pros::delay(300);
+
+  clawClamp.set(true);
+
+  // go back to pick up cone & pin
+
+  chassis.pid_drive_set(12, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-173, 100);
+  chassis.pid_wait();
+
+  lift::setPosition(15, 127);
+
+  // drive to the cup
+
+  chassis.pid_drive_set(-20, 68);
+  chassis.pid_wait_quick_chain();
+
+  // pick up cup pin
+
+  clawClamp.set(false);
+
+  lift::setPosition(-10, 127);
+  pros::delay(300);
+
+  chassis.pid_drive_set(22, 80);
+  chassis.pid_wait_quick();
+  
+  lift::setPosition(-50, 127);
+  pros::delay(400);
+
+  chassis.pid_turn_set(-123, 100);
+  chassis.pid_wait();
+
+  
+  chassis.pid_drive_set(-12, 127);
+  chassis.pid_wait(); 
 }
