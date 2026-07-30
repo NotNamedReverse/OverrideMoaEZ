@@ -14,3 +14,5 @@ inline pros::Motor intake(15, pros::v5::MotorGears::blue, pros::v5::MotorUnits::
 
 inline ez::Piston clawVertical(5, false);
 inline ez::Piston clawClamp(6, false);
+
+inline pros::Optical AutoClamp(1)
