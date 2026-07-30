@@ -34,7 +34,7 @@ namespace claw{
     void autoClamp_t(){
         AutoClamp.set_led_pwm(100);
         while(true){
-            if (AutoClamp.get_proximity() >= 230 ) {
+            if (AutoClamp.get_proximity() >= 230 && clawClamp.get() == false) {
                 clawClamp.set(true);
                 master.rumble(".");
                 if (clawReleased == true) {

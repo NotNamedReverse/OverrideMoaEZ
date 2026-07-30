@@ -3,7 +3,7 @@
 namespace claw{
     void init();
 
-    void setClawClamp();
+    void setClawClamp(bool value);
 
     void opControl();
 

@@ -81,7 +81,7 @@ void initialize() {
   // Initialize chassis and auton selector
   chassis.initialize();
   ez::as::initialize();
-  pros::Task autoClampTask(claw::autoClamp_t());
+  pros::Task autoClampTask(claw::autoClamp_t);
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
 }
 

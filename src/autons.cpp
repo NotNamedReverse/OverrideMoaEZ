@@ -418,7 +418,7 @@ void auto1() {
 
   pros::delay(500);
 
-  setClawClamp(true);
+  claw::setClawClamp(true);
 
   chassis.pid_drive_set(5, 127);
   chassis.pid_wait();
@@ -432,7 +432,7 @@ void auto1() {
   chassis.pid_drive_set(-18, 100);
   chassis.pid_wait();
 
-  setClawClamp(false);
+  claw::setClawClamp(false);
   lift::setPosition(-2, 127);
 
   // drive back to goal
@@ -452,7 +452,7 @@ void auto1() {
   lift::setPosition(-2, 127);
   pros::delay(300);
 
-  setClawClamp(true);
+  claw::setClawClamp(true);
 
   // go back to pick up cone & pin
 
@@ -471,7 +471,7 @@ void auto1() {
 
   // pick up cup pin
 
-  setClawClamp(false);
+  claw::setClawClamp(false);
 
   lift::setPosition(-10, 127);
   pros::delay(300);
@@ -528,7 +528,7 @@ void auto1Backup() {
 
   pros::delay(500);
 
-  setClawClamp(true);
+  claw::setClawClamp(true);
 
   chassis.pid_drive_set(5, 127);
   chassis.pid_wait();
@@ -542,7 +542,7 @@ void auto1Backup() {
   chassis.pid_drive_set(-18, 100);
   chassis.pid_wait();
 
-  setClawClamp(false);
+  claw::setClawClamp(false);
   lift::setPosition(-2, 127);
 
   // drive back to goal
@@ -562,7 +562,7 @@ void auto1Backup() {
   lift::setPosition(-2, 127);
   pros::delay(300);
 
-  setClawClamp(true);
+  claw::setClawClamp(true);
 
   // go back to pick up cone & pin
 
@@ -581,7 +581,7 @@ void auto1Backup() {
 
   // pick up cup pin
 
-  setClawClamp(false);
+  claw::setClawClamp(false);
 
   lift::setPosition(-10, 127);
   pros::delay(300);

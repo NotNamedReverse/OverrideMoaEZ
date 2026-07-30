@@ -425,7 +425,8 @@
     },
     "upload_options": {
       "description": "2145V MOA",
-      "icon": "planet"
+      "icon": "planet",
+      "slot": 2
     },
     "use_early_access": false
   }
