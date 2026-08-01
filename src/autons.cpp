@@ -498,20 +498,21 @@ void auto1() {
 
   chassis.pid_turn_set(-122, 127);
   chassis.pid_wait();
-
-  lift::setPosition(-30, 127);
   
+  
+  lift::setPosition(-30, 127);
   pros::delay(500);
   clawVertical.set(true);
   
   // drive into the goal
 
-  chassis.pid_drive_set(-5, 70);
+  chassis.pid_drive_set(-8, 70);
   chassis.pid_wait_quick();
 
-  
+  chassis.pid_drive_set(2, 70);
+  chassis.pid_wait_quick();
 
-  lift::setPosition(15, 127);
+  lift::setPosition(35, 127);
 
   pros::delay(600);
 
@@ -522,11 +523,11 @@ void auto1() {
 
   // turn for the pin
 
-  chassis.pid_turn_set(-72, 127);
+  chassis.pid_turn_set(-67, 127);
   chassis.pid_wait();
 
   // drive to get the pin on the wall
-  chassis.pid_drive_set(-18, 100);
+  chassis.pid_drive_set(-18, 90);
   chassis.pid_wait();
 
   clawClamp.set(false);
@@ -534,7 +535,7 @@ void auto1() {
 
   // drive back to goal
 
-  chassis.pid_drive_set(18, 127);
+  chassis.pid_drive_set(18, 100);
   chassis.pid_wait();
 
   lift::setPosition(-50, 127);
@@ -543,7 +544,7 @@ void auto1() {
   chassis.pid_turn_set(-123, 100);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-5, 100);
+  chassis.pid_drive_set(-3, 100);
   chassis.pid_wait();
 
   lift::setPosition(-2, 127);
@@ -551,36 +552,13 @@ void auto1() {
 
   clawClamp.set(true);
 
-  // go back to pick up cone & pin
-
-  chassis.pid_drive_set(12, 127);
+  chassis.pid_drive_set(20, 100);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(-173, 100);
+  chassis.pid_turn_set(80, 127);
   chassis.pid_wait();
 
-  lift::setPosition(20, 127);
-  pros::delay(300);
-
-  // drive to the cup
-
-  chassis.pid_drive_set(-20, 68);
-  chassis.pid_wait_quick_chain();
-
-  // pick up cup pin
-
-  clawClamp.set(false);
-
-  lift::setPosition(-75, 127);
-  pros::delay(300);
-
-  chassis.pid_turn_set(-55, 127);
-  chassis.pid_wait_quick();
-
-  chassis.pid_drive_set(-7, 120);
-  chassis.pid_wait_until(-5);
-
-  clawClamp.set(true);
+  chassis.pid_drive_set(-6, 127);
 }
 
 void auto1Backup() {
