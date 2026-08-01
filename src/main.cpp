@@ -58,7 +58,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      {"Auto 1", auto1},
+    {"Auto 1", auto1},
+    {"Auto 2", auto2},
 
 
 
