@@ -58,10 +58,13 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    {"Auto 1", auto1},
-    {"Auto 2", auto2},
-
-
+    {"Left Off Wall Align with other goal", auto3},
+    {"Left Main \n\n (right reversed)", auto2Reversed},
+    {"Right Main", auto2},
+    {"Skills", skills},
+    
+    
+    {"Right ", auto1},
 
       {"Drive\n\nDrive forward and come back", drive_example},
       {"Turn\n\nTurn 3 times.", turn_example},

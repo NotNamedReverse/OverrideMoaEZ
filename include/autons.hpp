@@ -17,5 +17,8 @@ void odom_boomerang_example();
 void odom_boomerang_injected_pure_pursuit_example();
 void measure_offsets();
 
+void skills();
+void auto3();
+void auto2Reversed();
 void auto2();
 void auto1();

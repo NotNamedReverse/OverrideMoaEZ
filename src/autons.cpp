@@ -66,7 +66,7 @@ void drive_example() {
   chassis.pid_turn_set(0, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-24_in, DRIVE_SPEED, true); // nice
   chassis.pid_wait();
 }
 
@@ -380,12 +380,334 @@ void measure_offsets() {
 // Make your own autonomous functions here!
 // . . .
 
-void auto2()
+void skills()
 {
   chassis.pid_drive_set(4, 127);
   chassis.pid_wait_quick_chain();
 
   chassis.pid_drive_set(-4, 127);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_swing_set(ez::LEFT_SWING, -40_deg, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-35, 127);
+  chassis.pid_wait();
+
+  // move forward and turn towards the right goal
+
+  chassis.pid_drive_set(16, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-122, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(-30, 127);
+  
+  pros::delay(500);
+  clawVertical.set(true);
+  
+  // drive into the goal
+
+  chassis.pid_drive_set(-7, 70);
+  chassis.pid_wait_quick();
+
+  chassis.pid_drive_set(2, 127);
+  chassis.pid_wait_quick();
+
+  lift::setPosition(20, 127);
+
+  pros::delay(600);
+
+  clawClamp.set(true);
+
+
+  // drive for the cup
+
+  chassis.pid_drive_set(12, 100);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-168, 100);
+  chassis.pid_wait();
+
+  lift::setPosition(30, 127);
+  pros::delay(300);
+
+  // drive to the cup
+
+  chassis.pid_drive_set(-22, 68);
+  chassis.pid_wait_quick_chain();
+
+  // pick up cup pin
+
+  clawClamp.set(false);
+
+  lift::setPosition(-45, 127);
+  pros::delay(400);
+
+  // turn back to goal
+
+  chassis.pid_turn_set(-50, 100);
+  chassis.pid_wait_quick();
+
+  chassis.pid_drive_set(-11 , 120);
+  chassis.pid_wait_until(-8);
+
+  lift::setPosition(-10, 127);
+  pros::delay(400);
+  clawClamp.set(true);
+
+  chassis.pid_drive_set(6, 120);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-94, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(25, 127);
+
+  chassis.pid_drive_set(-24, 127);
+  chassis.pid_wait_until(-20);
+
+  clawClamp.set(false);
+  lift::setPosition(-77, 127);
+
+  chassis.pid_turn_set(49, 127);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(-14, 127);
+  chassis.pid_wait_until(-12);
+
+  lift::setPosition(-10, 127);
+  pros::delay(600);
+  clawClamp.set(true);
+
+  chassis.pid_drive_set(6, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(96, 127);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-45, 127);
+  chassis.pid_wait();
+}
+
+
+void auto3()
+{
+  chassis.pid_drive_set(6, 127);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(-8, 127);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_swing_set(ez::RIGHT_SWING, 30_deg, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(20, 127);
+  chassis.pid_wait();
+
+  
+  // move forward and turn towards the left goal
+  
+  chassis.pid_drive_set(15, 127);
+  chassis.pid_wait();
+  
+  chassis.pid_turn_set(114, 127);
+  chassis.pid_wait();
+  
+  lift::setPosition(-35, 127);
+  
+  pros::delay(500);
+  clawVertical.set(true);
+  
+  // drive into the goal
+  
+  chassis.pid_drive_set(-8, 70);
+  chassis.pid_wait_quick();
+  
+  chassis.pid_drive_set(2, 127);
+  chassis.pid_wait_quick();
+  
+  lift::setPosition(30, 127);
+  
+  pros::delay(600);
+  
+  clawClamp.set(true);
+  
+  chassis.pid_drive_set(6, 127);
+  chassis.pid_wait();
+  
+  // do a 180 turn
+  chassis.pid_turn_set(294, 127);
+  chassis.pid_wait();
+  
+  // align with other goal
+  
+  lift::setPosition(-30, 127);
+  pros::delay(300);
+  
+  chassis.pid_drive_set(-28, 127);
+  chassis.pid_wait();
+  
+  // aligned; go back
+  
+  chassis.pid_drive_set(6, 127);
+  chassis.pid_wait();
+  
+  // turn to wall for cup
+  chassis.pid_turn_set(-17, 80);
+  chassis.pid_wait();
+  
+  lift::setPosition(35, 80);
+  pros::delay(300);
+  
+  chassis.pid_drive_set(-17, 127);
+  chassis.pid_wait();
+  
+  clawClamp.set(false);
+  
+  lift::setPosition(-10, 127);
+  
+  chassis.pid_drive_set(17, 127);
+  chassis.pid_wait();
+  
+  lift::setPosition(-55, 127);
+  pros::delay(600);
+  
+  chassis.pid_turn_set(294, 127);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-6, 127);
+  chassis.pid_wait_until(-4);
+
+  lift::setPosition(0, 127);
+  pros::delay(100);
+  
+  clawClamp.set(true);
+  chassis.pid_drive_set(6, 127);
+
+}
+
+void auto2Reversed()
+{
+  chassis.pid_drive_set(6, 127);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(-8, 127);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_swing_set(ez::RIGHT_SWING, 30_deg, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(20, 127);
+  chassis.pid_wait();
+
+  
+  // move forward and turn towards the left goal
+  
+  chassis.pid_drive_set(15, 127);
+  chassis.pid_wait();
+  
+  chassis.pid_turn_set(110, 127);
+  chassis.pid_wait();
+  
+  lift::setPosition(-30, 127);
+  
+  pros::delay(500);
+  clawVertical.set(true);
+  
+  // drive into the goal
+  
+  chassis.pid_drive_set(-7, 80);
+  chassis.pid_wait_quick_chain();
+  
+  chassis.pid_drive_set(2, 127);
+  chassis.pid_wait_quick();
+  
+  lift::setPosition(30, 127);
+  
+  pros::delay(600);
+  
+  clawClamp.set(true);
+  
+  pros::delay(200);
+
+  // drive for cup
+  
+  chassis.pid_drive_set(6, 127);
+  chassis.pid_wait();
+  
+  chassis.pid_turn_set(166, 127);
+  chassis.pid_wait();
+  
+  chassis.pid_drive_set(-20, 70);
+  chassis.pid_wait_until(-18);
+  
+  clawClamp.set(false);
+  
+  // grab the cup
+  
+  lift::setPosition(-40, 127);
+  pros::delay(400);
+  
+  // turn and score
+  
+  chassis.pid_turn_set(36, 100);
+  chassis.pid_wait();
+  
+  chassis.pid_drive_set(-10, 100);
+  chassis.pid_wait_until(-7);
+  
+  // drop cup
+  
+  lift::setPosition(-10, 127);
+  pros::delay(400);
+  clawClamp.set(true);
+  
+  // drive back and turn to pin closer to wall
+  
+  chassis.pid_drive_set(12, 127);
+  chassis.pid_wait();
+  
+  chassis.pid_turn_set(78, 127);
+  chassis.pid_wait();
+  
+  // lower lift for grab position
+  
+  lift::setPosition(30, 50);
+  pros::delay(400);
+  
+  chassis.pid_drive_set(-28, 127);
+  chassis.pid_wait_until(-24);
+  
+  // grab the pin
+  
+  clawClamp.set(false);
+  lift::setPosition(-70, 127);
+  
+  // turn back to goal and score
+  
+  chassis.pid_turn_set(-48, 127);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-14, 127);
+  chassis.pid_wait_until(-10);
+
+
+  // drop cup & pin 
+  lift::setPosition(-30, 127);
+  clawClamp.set(true);
+
+  chassis.pid_drive_set(6, 127);
+}
+
+
+void auto2()
+{
+  chassis.pid_drive_set(7, 127);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(-7, 127);
   chassis.pid_wait_quick_chain();
 
   chassis.pid_swing_set(ez::LEFT_SWING, -40_deg, 127);
@@ -415,7 +737,7 @@ void auto2()
   chassis.pid_drive_set(2, 127);
   chassis.pid_wait_quick();
 
-  lift::setPosition(20, 127);
+  lift::setPosition(30, 127);
 
   pros::delay(600);
 
@@ -424,58 +746,64 @@ void auto2()
 
   // drive for the cup
 
-  chassis.pid_drive_set(12, 127);
+  chassis.pid_drive_set(12, 100);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(-168, 100);
+  chassis.pid_turn_set(-170, 100);
   chassis.pid_wait();
 
-  lift::setPosition(25, 127);
+  lift::setPosition(45, 127);
   pros::delay(300);
 
   // drive to the cup
 
-  chassis.pid_drive_set(-20, 68);
+  chassis.pid_drive_set(-22, 68);
   chassis.pid_wait_quick_chain();
 
   // pick up cup pin
 
   clawClamp.set(false);
 
-  lift::setPosition(-40, 127);
+  lift::setPosition(-45, 127);
   pros::delay(400);
 
-  chassis.pid_turn_set(-52, 100);
+  // turn back to goal
+
+  chassis.pid_turn_set(-50, 100);
   chassis.pid_wait_quick();
 
-  chassis.pid_drive_set(-8, 120);
-  chassis.pid_wait_until(-6);
+  chassis.pid_drive_set(-11 , 120);
+  chassis.pid_wait_until(-8);
 
   lift::setPosition(-10, 127);
   pros::delay(400);
   clawClamp.set(true);
 
-  chassis.pid_drive_set(6, 120);
+  chassis.pid_drive_set(8, 120);
   chassis.pid_wait();
 
   chassis.pid_turn_set(-94, 127);
   chassis.pid_wait();
 
-  lift::setPosition(25, 127);
+  lift::setPosition(35, 127);
 
-  chassis.pid_drive_set(-24, 127);
-  chassis.pid_wait_until(-20);
+  chassis.pid_drive_set(-26, 127);
+  chassis.pid_wait_until(-21);
 
   clawClamp.set(false);
   lift::setPosition(-77, 127);
 
-  chassis.pid_turn_set(49, 127);
+  chassis.pid_turn_set(46 , 127);
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_drive_set(-14, 127);
-  chassis.pid_wait_until(-12);
+  chassis.pid_drive_set(-16, 127);
+  chassis.pid_wait_until(-11);
 
+  lift::setPosition(-10, 127);
+  pros::delay(600);
   clawClamp.set(true);
+
+  chassis.pid_drive_set(6, 127);
 }
 
 void auto1() {
