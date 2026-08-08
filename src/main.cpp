@@ -66,6 +66,8 @@ void initialize() {
     
     {"Right ", auto1},
 
+    // autos that came with the library
+
       {"Drive\n\nDrive forward and come back", drive_example},
       {"Turn\n\nTurn 3 times.", turn_example},
       {"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
@@ -259,6 +261,7 @@ void opcontrol() {
 
     chassis.opcontrol_tank();  // Tank control
 
+    // intake stuff; i dont feel like making a whole thing for it
     if (master.get_digital(DIGITAL_R1))
     {
       intake.move(-127);

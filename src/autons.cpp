@@ -380,6 +380,9 @@ void measure_offsets() {
 // Make your own autonomous functions here!
 // . . .
 
+
+// autos that came with the library ^^^^^^^
+
 void skills()
 {
   chassis.pid_drive_set(4, 127);
@@ -491,7 +494,7 @@ void skills()
   chassis.pid_wait();
 }
 
-
+// left side; align with right goal; grab pin on wall
 void auto3()
 {
   chassis.pid_drive_set(6, 127);
@@ -588,6 +591,7 @@ void auto3()
 
 }
 
+// reveresed of auto2
 void auto2Reversed()
 {
   chassis.pid_drive_set(6, 127);
@@ -701,7 +705,7 @@ void auto2Reversed()
   chassis.pid_drive_set(6, 127);
 }
 
-
+// right side; deposit preload, get 2 cups near goal (not on wall)
 void auto2()
 {
   chassis.pid_drive_set(7, 127);
@@ -806,6 +810,8 @@ void auto2()
   chassis.pid_drive_set(6, 127);
 }
 
+
+// not used anymore; right side; deposit preload, get cup on wall
 void auto1() {
   chassis.pid_drive_set(4, 127);
   chassis.pid_wait_quick_chain();
@@ -889,6 +895,8 @@ void auto1() {
   chassis.pid_drive_set(-6, 127);
 }
 
+
+// backup stuf
 void auto1Backup() {
   chassis.pid_drive_set(4, 127);
   chassis.pid_wait_quick_chain();
