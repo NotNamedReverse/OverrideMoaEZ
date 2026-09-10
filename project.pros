@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "OverrideMoa",
+    "project_name": "OverrideSeason",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -424,7 +424,7 @@
       }
     },
     "upload_options": {
-      "description": "2145V MOA",
+      "description": "2145V Season",
       "icon": "planet"
     },
     "use_early_access": false

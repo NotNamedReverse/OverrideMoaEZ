@@ -8,10 +8,10 @@
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {-8, -9, -10},     // Left Chassis Ports (negative port will reverse it!)
-    {18, 19, 20},  // Right Chassis Ports (negative port will reverse it!)
+    {10, 9, -8},     // Left Chassis Ports (negative port will reverse it!)
+    {20, 19, -18},  // Right Chassis Ports (negative port will reverse it!)
 
-    17,      // IMU Port
+    15,      // IMU Port
     2.75,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     450);   // Wheel RPM = cartridge * (motor gear / wheel gear)
 
@@ -58,13 +58,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    {"Left Off Wall Align with other goal", auto3},
-    {"Left Main \n\n (right reversed)", auto2Reversed},
-    {"Right Main", auto2},
-    {"Skills", skills},
     
-    
-    {"Right ", auto1},
 
     // autos that came with the library
 

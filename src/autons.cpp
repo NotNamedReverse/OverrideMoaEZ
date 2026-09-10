@@ -512,15 +512,15 @@ void auto3()
   
   // move forward and turn towards the left goal
   
-  chassis.pid_drive_set(15, 127);
+  chassis.pid_drive_set(16, 127);
   chassis.pid_wait();
   
-  chassis.pid_turn_set(114, 127);
+  chassis.pid_turn_set(110, 127);
   chassis.pid_wait();
   
   lift::setPosition(-35, 127);
   
-  pros::delay(500);
+  pros::delay(200);
   clawVertical.set(true);
   
   // drive into the goal
@@ -533,7 +533,7 @@ void auto3()
   
   lift::setPosition(30, 127);
   
-  pros::delay(600);
+  pros::delay(500);
   
   clawClamp.set(true);
   
@@ -541,13 +541,13 @@ void auto3()
   chassis.pid_wait();
   
   // do a 180 turn
-  chassis.pid_turn_set(294, 127);
+  chassis.pid_turn_set(290, 127);
   chassis.pid_wait();
   
   // align with other goal
   
   lift::setPosition(-30, 127);
-  pros::delay(300);
+  pros::delay(200);
   
   chassis.pid_drive_set(-28, 127);
   chassis.pid_wait();
@@ -562,9 +562,9 @@ void auto3()
   chassis.pid_wait();
   
   lift::setPosition(35, 80);
-  pros::delay(300);
+  pros::delay(200);
   
-  chassis.pid_drive_set(-17, 127);
+  chassis.pid_drive_set(-18, 127);
   chassis.pid_wait();
   
   clawClamp.set(false);
@@ -572,7 +572,7 @@ void auto3()
   lift::setPosition(-10, 127);
   
   chassis.pid_drive_set(17, 127);
-  chassis.pid_wait();
+  chassis.pid_wait_until(14);
   
   lift::setPosition(-55, 127);
   pros::delay(600);
@@ -584,7 +584,7 @@ void auto3()
   chassis.pid_wait_until(-4);
 
   lift::setPosition(0, 127);
-  pros::delay(100);
+  pros::delay(200);
   
   clawClamp.set(true);
   chassis.pid_drive_set(6, 127);
@@ -708,24 +708,24 @@ void auto2Reversed()
 // right side; deposit preload, get 2 cups near goal (not on wall)
 void auto2()
 {
-  chassis.pid_drive_set(7, 127);
+  chassis.pid_drive_set(6, 127);
   chassis.pid_wait_quick_chain();
 
   chassis.pid_drive_set(-7, 127);
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_swing_set(ez::LEFT_SWING, -40_deg, 127);
+  chassis.pid_swing_set(ez::LEFT_SWING, -30_deg, 127);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(-35, 127);
+  chassis.pid_turn_set(-20, 127);
   chassis.pid_wait();
 
   // move forward and turn towards the right goal
 
-  chassis.pid_drive_set(15, 127);
+  chassis.pid_drive_set(16, 127);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(-122, 127);
+  chassis.pid_turn_set(-110, 127);
   chassis.pid_wait();
 
   lift::setPosition(-30, 127);
@@ -747,53 +747,55 @@ void auto2()
 
   clawClamp.set(true);
 
-
+  
+  
   // drive for the cup
-
+  
   chassis.pid_drive_set(12, 100);
   chassis.pid_wait();
-
-  chassis.pid_turn_set(-170, 100);
+  
+  chassis.pid_turn_set(-156, 100);
   chassis.pid_wait();
-
+  
   lift::setPosition(45, 127);
   pros::delay(300);
-
+  
   // drive to the cup
-
+  
   chassis.pid_drive_set(-22, 68);
   chassis.pid_wait_quick_chain();
-
+  
   // pick up cup pin
-
+  
   clawClamp.set(false);
-
+  
   lift::setPosition(-45, 127);
   pros::delay(400);
-
+  
   // turn back to goal
-
-  chassis.pid_turn_set(-50, 100);
+  
+  chassis.pid_turn_set(-40, 100);
   chassis.pid_wait_quick();
-
+  
   chassis.pid_drive_set(-11 , 120);
   chassis.pid_wait_until(-8);
-
+  
   lift::setPosition(-10, 127);
   pros::delay(400);
   clawClamp.set(true);
-
+  
   chassis.pid_drive_set(8, 120);
   chassis.pid_wait();
-
+  
   chassis.pid_turn_set(-94, 127);
   chassis.pid_wait();
-
+  
   lift::setPosition(35, 127);
-
+  
   chassis.pid_drive_set(-26, 127);
   chassis.pid_wait_until(-21);
-
+  
+  return;
   clawClamp.set(false);
   lift::setPosition(-77, 127);
 
