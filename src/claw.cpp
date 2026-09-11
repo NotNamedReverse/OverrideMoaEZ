@@ -7,19 +7,29 @@ namespace claw{
 
     }
 
+    void toggleClamp()
+    {
+        clawClamp.set(!clawClamp.get());
+    }
+
     // driver control; detetct button presses and toggle the pistons
     void opControl()
     {
         // toggle if the claw is clamped or not
         if (master.get_digital_new_press(DIGITAL_Y))
         {
-            clawClamp.set(!clawClamp.get());
+            toggleClamp();
         }
 
-        // toggle if the claw should be vertical
-        if (master.get_digital_new_press(DIGITAL_RIGHT))
+        if (master.get_digital(DIGITAL_RIGHT))
         {
-            clawVertical.set(!clawVertical.get());
+            clawIntakeA.move(-127);
+            clawIntakeB.move(127);
+        }
+        else
+        {
+            clawIntakeA.move(0);
+            clawIntakeB.move(0);
         }
     }
 }

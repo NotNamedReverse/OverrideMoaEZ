@@ -8,8 +8,8 @@
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {10, 9, -8},     // Left Chassis Ports (negative port will reverse it!)
-    {20, 19, -18},  // Right Chassis Ports (negative port will reverse it!)
+    {-10, -9, -8},     // Left Chassis Ports (negative port will reverse it!)
+    {20, 19, 18},  // Right Chassis Ports (negative port will reverse it!)
 
     15,      // IMU Port
     2.75,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -58,7 +58,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    
+      {"4 NM", fourNM},
 
     // autos that came with the library
 
@@ -249,18 +249,26 @@ void opcontrol() {
 
   lift::init();
   claw::init();
+
+  
+
   while (true) {
     // Gives you some extras to make EZ-Template ezier
-    //ez_template_extras();
+    ez_template_extras();
 
+    
     chassis.opcontrol_tank();  // Tank control
+    
+    pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
+    
+    continue;
 
     // intake stuff; i dont feel like making a whole thing for it
-    if (master.get_digital(DIGITAL_R1))
+    if (master.get_digital(DIGITAL_B))
     {
       intake.move(-127);
     }
-    else if (master.get_digital(DIGITAL_L1))
+    else if (master.get_digital(DIGITAL_DOWN))
     {
       intake.move(127);
     }
@@ -269,9 +277,19 @@ void opcontrol() {
       intake.move(0);
     }
 
+    if (master.get_digital(DIGITAL_R2))
+    {
+      toggleSpinner.move(127);
+    }
+    else
+    {
+      toggleSpinner.move(0);
+    }
+
+    flipper.set(master.get_digital(DIGITAL_LEFT));
+
     lift::opControl();
     claw::opControl();
 
-    pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }

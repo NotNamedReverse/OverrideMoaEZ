@@ -18,36 +18,13 @@ namespace lift{
     void opControl()
     {
         // gradually move lift down
-        if (master.get_digital(DIGITAL_R2))
+        if (master.get_digital(DIGITAL_R1))
         {
-            liftA.move(50);
+            liftA.move(127);
         }
-        else if (master.get_digital(DIGITAL_L2)) // gradually move lift up
+        else if (master.get_digital(DIGITAL_L1)) // gradually move lift up
         {
-            liftA.move(-100);
-        }
-        else if (master.get_digital_new_press(DIGITAL_DOWN)) // automatically drop lower the clamp and lower the lift to a position for grabbing the pins from the intake
-        {
-            setPosition(5, 40);
-
-            clawVertical.set(false);
-            clawClamp.set(true);
-            
-            // wait for the lift to reach the position before opening the clamp
-            while (liftA.get_position() < 5)
-            {
-                pros::delay(10);
-            }
-
-            clawVertical.set(true);
-            clawClamp.set(false);
-        }
-        else if (master.get_digital_new_press(DIGITAL_B)) // a random thing luke wanted
-        {
-            setPosition(15, 100);
-            
-            clawVertical.set(false);
-            clawClamp.set(true);
+            liftA.move(-127);
         }
 
         else // if no input is detected then stop the lift and hold it in place

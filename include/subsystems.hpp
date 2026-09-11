@@ -13,14 +13,19 @@ extern Drive chassis;
 
 // motors
 
-// lift motors
-inline pros::Motor liftA(-13, pros::v5::MotorGears::red, pros::v5::MotorUnits::degrees);
+// lift
+inline pros::Motor toggleSpinner(2);
+inline pros::Motor liftA(6, pros::v5::MotorGears::red, pros::v5::MotorUnits::degrees);
 
 // intake
-inline pros::Motor intake(15, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+inline pros::Motor intake(3, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 
 // pistons
 
+inline ez::Piston flipper(8, false);
+
 // clamp
-inline ez::Piston clawVertical(5, false);
-inline ez::Piston clawClamp(6, false);
+inline ez::Piston clawClamp(1, false);
+
+inline pros::Motor clawIntakeA(16);
+inline pros::Motor clawIntakeB(17);
