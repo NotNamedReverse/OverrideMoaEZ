@@ -20,3 +20,5 @@ void odom_boomerang_injected_pure_pursuit_example();
 void measure_offsets();
 
 void fourNM();
+void N4();
+void NM3();

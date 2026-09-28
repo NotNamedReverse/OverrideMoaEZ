@@ -49,6 +49,7 @@
 
 #include "claw.hpp"
 #include "lift.hpp"
+#include "autonclicker.hpp"
 
 
 /**

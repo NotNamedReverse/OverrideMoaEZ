@@ -29,3 +29,5 @@ inline ez::Piston clawClamp(1, false);
 
 inline pros::Motor clawIntakeA(16);
 inline pros::Motor clawIntakeB(17);
+
+inline pros::ADIAnalogIn bumper(2);

@@ -12,6 +12,18 @@ namespace claw{
         clawClamp.set(!clawClamp.get());
     }
 
+    void intake()
+    {
+        clawIntakeA.move(-127);
+        clawIntakeB.move(127);
+    }
+
+    void stopIntake()
+    {
+        clawIntakeA.move(0);
+        clawIntakeB.move(0);
+    }
+
     // driver control; detetct button presses and toggle the pistons
     void opControl()
     {
@@ -23,13 +35,11 @@ namespace claw{
 
         if (master.get_digital(DIGITAL_RIGHT))
         {
-            clawIntakeA.move(-127);
-            clawIntakeB.move(127);
+            intake();
         }
         else
         {
-            clawIntakeA.move(0);
-            clawIntakeB.move(0);
+            stopIntake();
         }
     }
 }
