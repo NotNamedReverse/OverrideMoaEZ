@@ -28,12 +28,12 @@ namespace claw{
     void opControl()
     {
         // toggle if the claw is clamped or not
-        if (master.get_digital_new_press(DIGITAL_Y))
+        if (master.get_digital_new_press(DIGITAL_L2))
         {
             toggleClamp();
         }
 
-        if (master.get_digital(DIGITAL_RIGHT))
+        if (master.get_digital(DIGITAL_L1))
         {
             intake();
         }

@@ -1,5 +1,8 @@
 #include "main.h"
 
+#include <algorithm>
+#include <cstdlib>
+
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -8,8 +11,8 @@
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {-10, -9, -8},     // Left Chassis Ports (negative port will reverse it!)
-    {20, 19, 18},  // Right Chassis Ports (negative port will reverse it!)
+    {10, 9, 8},     // Left Chassis Ports (negative port will reverse it!)
+    {-20, -19, -18},  // Right Chassis Ports (negative port will reverse it!)
 
     15,      // IMU Port
     2.75,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -22,6 +25,21 @@ ez::Drive chassis(
 // - `4.0` is the distance from the center of the wheel to the center of the robot
 // ez::tracking_wheel horiz_tracker(8, 2.75, 4.0);  // This tracking wheel is perpendicular to the drive wheels
 ez::tracking_wheel vert_tracker(16, 2, 1);   // This tracking wheel is parallel to the drive wheels
+
+void arcade_standard_inverted() {
+  const int forward = master.get_analog(ANALOG_LEFT_Y);
+  const int turn = master.get_analog(ANALOG_RIGHT_X);
+  int left = forward - turn;
+  int right = forward + turn;
+
+  const int max_power = std::max(std::abs(left), std::abs(right));
+  if (max_power > 127) {
+    left = left * 127 / max_power;
+    right = right * 127 / max_power;
+  }
+
+  chassis.drive_set(left, right);
+}
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -58,7 +76,9 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    {"M4", N4},
+    {"M2+2", M2plus2},
+    {"M4", M42},
+    //{"M4", N4},
     {"NM3", NM3},
     {"4 NM", fourNM},
     });
@@ -235,13 +255,12 @@ void opcontrol() {
   lift::init();
   claw::init();
 
-  
 
   while (true) {
     // Gives you some extras to make EZ-Template ezier
     ez_template_extras();
-    
-    chassis.opcontrol_tank();  // Tank control
+
+    arcade_standard_inverted();
     
     
     // intake stuff; i dont feel like making a whole thing for it
@@ -258,7 +277,7 @@ void opcontrol() {
       intake.move(0);
     }
     
-    if (master.get_digital(DIGITAL_R2))
+    if (master.get_digital(DIGITAL_Y))
     {
       toggleSpinner.move(127);
     }
@@ -273,11 +292,12 @@ void opcontrol() {
 
     autonclicker::update();
     
-    flipper.set(master.get_digital(DIGITAL_L2));
+    flipper.set(master.get_digital(DIGITAL_RIGHT));
     
     lift::opControl();
     claw::opControl();
     
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
+  
   }
 }

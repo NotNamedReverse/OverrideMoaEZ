@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "OverrideSeason",
+    "project_name": "DylanSettings",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -425,7 +425,8 @@
     },
     "upload_options": {
       "description": "2145V Season",
-      "icon": "planet"
+      "icon": "planet",
+      "slot": 2
     },
     "use_early_access": false
   }
