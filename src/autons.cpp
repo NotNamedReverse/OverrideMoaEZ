@@ -729,6 +729,42 @@ void N4() {
   chassis.pid_drive_set(10, 127);
 }
 
+void NM3New(){
+  chassis.pid_drive_set(-5_in, 127);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(5_in, 127);
+  chassis.pid_wait();
+
+  toggleSpinner.move(-127);
+  pros::delay(150);
+
+  toggleSpinner.move(127);
+
+  pros::delay(650);
+
+  toggleSpinner.move(0);
+
+  lift::setPosition(-250, 127);  // lift to place first pin
+
+  chassis.pid_swing_set(LEFT_SWING, -65, 127, 5);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(-7_in, 127, true);
+  chassis.pid_wait();
+
+  flipper.set(true);
+
+  pros::delay(900);
+
+  chassis.pid_drive_set(4, 127);
+  chassis.pid_wait();
+
+  flipper.set(false);
+
+  pros::delay(500);
+}
+
 void NM3() {
   chassis.pid_drive_set(-5_in, 127);
   chassis.pid_wait();

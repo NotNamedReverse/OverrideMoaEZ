@@ -23,4 +23,5 @@ void M2plus2();
 void M42();
 void fourNM();
 void N4();
+void NM3New();
 void NM3();

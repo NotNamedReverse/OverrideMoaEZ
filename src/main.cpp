@@ -58,9 +58,12 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    {"M4", N4},
-    {"NM3", NM3},
+    {"NM3", NM3New},
     {"4 NM", fourNM},
+    {"M4", M42},
+    //{"M4", N4},
+    
+    //{"NM3", NM3},
     });
 
   // Initialize chassis and auton selector
