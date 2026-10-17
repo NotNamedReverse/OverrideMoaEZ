@@ -58,13 +58,14 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    {"M4", M42},
     {"M2+2", M2plus2},
     {"NM3", NM3},
-    //{"NM3", NM3New},
     {"4 NM", fourNM},
-    {"M4", M42},
-    //{"M4", N4},
+    {"Skills", skills},
     
+    //{"M4", N4},
+    //{"NM3", NM3New},
     });
 
   // Initialize chassis and auton selector
@@ -244,8 +245,15 @@ void opcontrol() {
   while (true) {
     // Gives you some extras to make EZ-Template ezier
     ez_template_extras();
-
+    
     chassis.opcontrol_tank();  // Tank control
+
+    if (swirleeDebugTool::openMenuPressed())
+    {
+
+
+      continue;
+    }
     
     
     // intake stuff; i dont feel like making a whole thing for it
@@ -277,10 +285,11 @@ void opcontrol() {
 
     autonclicker::update();
     
-    flipper.set(master.get_digital(DIGITAL_L2));
+    flipper::set(master.get_digital(DIGITAL_L2));
     
     lift::opControl();
     claw::opControl();
+
     
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }

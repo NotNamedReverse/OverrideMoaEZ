@@ -1,6 +1,9 @@
+#pragma once
 #include "main.h"
 
 namespace claw{
+    inline bool isClamped = false;
+
     void init();
 
     void intake();

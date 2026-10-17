@@ -47,7 +47,10 @@
 #include "autons.hpp"
 #include "subsystems.hpp"
 
+#include "swirleeDbgTool.hpp"
+
 #include "claw.hpp"
+#include "flipper.hpp"
 #include "lift.hpp"
 #include "autonclicker.hpp"
 
