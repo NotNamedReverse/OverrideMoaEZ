@@ -20,14 +20,11 @@ inline pros::Motor liftA(6, pros::v5::MotorGears::red, pros::v5::MotorUnits::deg
 // intake
 inline pros::Motor intake(3, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 
-// pistons
-
-inline ez::Piston flipper(8, false);
+// flipper
+inline pros::Motor flipperMotor(16);
 
 // clamp
-inline ez::Piston clawClamp(1, false);
+inline pros::Motor clawIntake(14);
+inline pros::Motor clawClamp(12);
 
-inline pros::Motor clawIntakeA(16);
-inline pros::Motor clawIntakeB(17);
-
-inline pros::ADIAnalogIn bumper(2);
+inline pros::ADIAnalogIn bumper(1);

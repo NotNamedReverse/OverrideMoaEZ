@@ -4,36 +4,36 @@
 namespace claw{
     void init()
     {
-
+        clawClamp.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     }
 
     void toggleClamp()
     {
-        clawClamp.set(!clawClamp.get());
+        isClamped = !isClamped;
+
+        clawClamp.move_absolute(isClamped ? 145 : 0, 127);
     }
 
     void intake()
     {
-        clawIntakeA.move(-127);
-        clawIntakeB.move(127);
+        clawIntake.move(127);
     }
 
     void stopIntake()
     {
-        clawIntakeA.move(0);
-        clawIntakeB.move(0);
+        clawIntake.move(0);
     }
 
     // driver control; detetct button presses and toggle the pistons
     void opControl()
     {
         // toggle if the claw is clamped or not
-        if (master.get_digital_new_press(DIGITAL_L2))
+        if (master.get_digital_new_press(DIGITAL_Y))
         {
             toggleClamp();
         }
 
-        if (master.get_digital(DIGITAL_L1))
+        if (master.get_digital(DIGITAL_RIGHT))
         {
             intake();
         }

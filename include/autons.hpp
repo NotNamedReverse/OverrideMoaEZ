@@ -4,6 +4,8 @@
 
 void default_constants();
 
+void pid_tune_auto();
+
 void drive_example();
 void turn_example();
 void drive_and_turn();
@@ -19,8 +21,13 @@ void odom_boomerang_example();
 void odom_boomerang_injected_pure_pursuit_example();
 void measure_offsets();
 
+
+void skillsNew();
+
+void skills();
 void M2plus2();
 void M42();
 void fourNM();
 void N4();
+void NM3New();
 void NM3();
