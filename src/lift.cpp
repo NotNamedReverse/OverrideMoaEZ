@@ -18,11 +18,11 @@ namespace lift{
     void opControl()
     {
         // gradually move lift down
-        if (master.get_digital(DIGITAL_R1))
+        if (master.get_digital(DIGITAL_R2))
         {
             liftA.move(127);
         }
-        else if (master.get_digital(DIGITAL_L1)) // gradually move lift up
+        else if (master.get_digital(DIGITAL_R1)) // gradually move lift up
         {
             liftA.move(-127);
         }

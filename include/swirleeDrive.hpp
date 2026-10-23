@@ -3,4 +3,5 @@
 
 namespace swirleeDrive{
     void tank_control();
+    void arcade_standard_inverted();
 }

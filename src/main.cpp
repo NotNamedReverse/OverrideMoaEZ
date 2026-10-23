@@ -240,51 +240,71 @@ void ez_template_extras() {
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
+
+/**
+ * Runs the operator control code. This function will be started in its own task
+ * with the default priority and stack size whenever the robot is enabled via
+ * the Field Management System or the VEX Competition Switch in the operator
+ * control mode.
+ *
+ * If no competition control is connected, this function will run immediately
+ * following initialize().
+ *
+ * If the robot is disabled or communications is lost, the
+ * operator control task will be stopped. Re-enabling the robot will restart the
+ * task, not resume it from where it left off.
+ */
 void opcontrol() {
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
+  lift::init();
+  claw::init();
+
+
   while (true) {
     // Gives you some extras to make EZ-Template ezier
+    ez_template_extras();
 
-    if (false) {
-      ez_template_extras();
-
-      pros::delay(ez::util::DELAY_TIME);
-
-      continue;
-    }
-
-    swirleeDrive::tank_control();  // Tank control (no sens buttons)
-
-    if (swirleeDebugTool::openMenuPressed()) {
-      continue;
-    }
-
+    swirleeDrive::arcade_standard_inverted();
+    
+    
     // intake stuff; i dont feel like making a whole thing for it
-    if (master.get_digital(DIGITAL_B)) {
+    if (master.get_digital(DIGITAL_B))
+    {
       intake.move(-127);
-    } else if (master.get_digital(DIGITAL_DOWN) || master.get_digital(DIGITAL_L2)) {
+    }
+    else if (master.get_digital(DIGITAL_DOWN))
+    {
       intake.move(127);
-    } else {
+    }
+    else
+    {
       intake.move(0);
     }
-
-    if (master.get_digital(DIGITAL_R2)) {
+    
+    if (master.get_digital(DIGITAL_Y))
+    {
       toggleSpinner.move(127);
-    } else if (master.get_digital(DIGITAL_LEFT)) {
+    }
+    else if (master.get_digital(DIGITAL_LEFT))
+    {
       toggleSpinner.move(-127);
-    } else {
+    }
+    else
+    {
       toggleSpinner.move(0);
     }
 
     autonclicker::update();
-
-    flipper::set(master.get_digital(DIGITAL_L2));
-
+    
+    flipper::set(master.get_digital(DIGITAL_RIGHT));
+    
     lift::opControl();
     claw::opControl();
-
+    
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
+  
   }
 }
