@@ -6,7 +6,7 @@ namespace autonclicker
     void update()
     {
         int bumperValue = bumper.get_value();
-        if (bumperValue < threshold)
+        if (bumperValue <= threshold)
         {
             holdTime += 1;
             

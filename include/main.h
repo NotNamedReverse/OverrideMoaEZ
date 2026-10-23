@@ -48,6 +48,7 @@
 #include "subsystems.hpp"
 
 #include "swirleeDbgTool.hpp"
+#include "swirleeDrive.hpp"
 
 #include "claw.hpp"
 #include "flipper.hpp"

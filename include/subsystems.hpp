@@ -27,4 +27,4 @@ inline pros::Motor flipperMotor(16);
 inline pros::Motor clawIntake(14);
 inline pros::Motor clawClamp(12);
 
-inline pros::ADIAnalogIn bumper(2);
+inline pros::ADIAnalogIn bumper(1);

@@ -3,4 +3,6 @@
 
 namespace swirleeDebugTool{
     bool openMenuPressed();
+    void initialize();
+    bool isGraphShowing();
 }

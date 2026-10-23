@@ -8,12 +8,12 @@
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {-10, -9, -8},     // Left Chassis Ports (negative port will reverse it!)
-    {20, 19, 18},  // Right Chassis Ports (negative port will reverse it!)
+    {-10, -9, -8},  // Left Chassis Ports (negative port will reverse it!)
+    {20, 19, 18},   // Right Chassis Ports (negative port will reverse it!)
 
-    15,      // IMU Port
+    15,    // IMU Port
     2.75,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
-    450);   // Wheel RPM = cartridge * (motor gear / wheel gear)
+    450);  // Wheel RPM = cartridge * (motor gear / wheel gear)
 
 // Uncomment the trackers you're using here!
 // - `8` and `9` are smart ports (making these negative will reverse the sensor)
@@ -21,7 +21,7 @@ ez::Drive chassis(
 // - `2.75` is the wheel diameter
 // - `4.0` is the distance from the center of the wheel to the center of the robot
 // ez::tracking_wheel horiz_tracker(8, 2.75, 4.0);  // This tracking wheel is perpendicular to the drive wheels
-ez::tracking_wheel vert_tracker(16, 2, 1);   // This tracking wheel is parallel to the drive wheels
+ez::tracking_wheel vert_tracker(16, 2, 1);  // This tracking wheel is parallel to the drive wheels
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -31,7 +31,7 @@ ez::tracking_wheel vert_tracker(16, 2, 1);   // This tracking wheel is parallel 
  */
 void initialize() {
   // Print our branding over your terminal :D
-  ez::ez_template_print();
+  // ez::ez_template_print();
 
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
 
@@ -58,18 +58,24 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    {"Skills", skillsNew},
+    {"NM3", NM3New},
     {"M4", M42},
     {"M2+2", M2plus2},
-    {"NM3", NM3},
-    {"4 NM", fourNM},
-    {"Skills", skills},
-    
-    //{"M4", N4},
-    //{"NM3", NM3New},
-    });
+    //{"4 NM", fourNM},
+    //{"Skills", skills},
+    //{"pid-test", pid_tune_auto},
+
+      //{"M4", N4},
+      //{"NM3", NM3New},
+  });
 
   // Initialize chassis and auton selector
+  lift::init();
+  claw::init();
+
   chassis.initialize();
+  // swirleeDebugTool::initialize();
   ez::as::initialize();
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
 }
@@ -133,7 +139,7 @@ void autonomous() {
 /**
  * Simplifies printing tracker values to the brain screen
  */
-void screen_print_tracker(ez::tracking_wheel *tracker, std::string name, int line) {
+void screen_print_tracker(ez::tracking_wheel* tracker, std::string name, int line) {
   std::string tracker_value = "", tracker_width = "";
   // Check if the tracker exists
   if (tracker != nullptr) {
@@ -153,7 +159,8 @@ void ez_screen_task() {
     // Only run this when not connected to a competition switch
     if (!pros::competition::is_connected()) {
       // Blank page for odom debugging
-      if (chassis.odom_enabled() && !chassis.pid_tuner_enabled()) {
+      if (chassis.odom_enabled() && !chassis.pid_tuner_enabled() &&
+          !swirleeDebugTool::isGraphShowing()) {
         // If we're on the first blank page...
         if (ez::as::page_blank_is_on(0)) {
           // Display X, Y, and Theta
@@ -237,60 +244,47 @@ void opcontrol() {
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
 
-  lift::init();
-  claw::init();
-
-  
-
   while (true) {
     // Gives you some extras to make EZ-Template ezier
-    ez_template_extras();
-    
-    chassis.opcontrol_tank();  // Tank control
 
-    if (swirleeDebugTool::openMenuPressed())
-    {
+    if (false) {
+      ez_template_extras();
 
+      pros::delay(ez::util::DELAY_TIME);
 
       continue;
     }
-    
-    
+
+    swirleeDrive::tank_control();  // Tank control (no sens buttons)
+
+    if (swirleeDebugTool::openMenuPressed()) {
+      continue;
+    }
+
     // intake stuff; i dont feel like making a whole thing for it
-    if (master.get_digital(DIGITAL_B))
-    {
+    if (master.get_digital(DIGITAL_B)) {
       intake.move(-127);
-    }
-    else if (master.get_digital(DIGITAL_DOWN))
-    {
+    } else if (master.get_digital(DIGITAL_DOWN) || master.get_digital(DIGITAL_L2)) {
       intake.move(127);
-    }
-    else
-    {
+    } else {
       intake.move(0);
     }
-    
-    if (master.get_digital(DIGITAL_R2))
-    {
+
+    if (master.get_digital(DIGITAL_R2)) {
       toggleSpinner.move(127);
-    }
-    else if (master.get_digital(DIGITAL_LEFT))
-    {
+    } else if (master.get_digital(DIGITAL_LEFT)) {
       toggleSpinner.move(-127);
-    }
-    else
-    {
+    } else {
       toggleSpinner.move(0);
     }
 
     autonclicker::update();
-    
+
     flipper::set(master.get_digital(DIGITAL_L2));
-    
+
     lift::opControl();
     claw::opControl();
 
-    
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }
