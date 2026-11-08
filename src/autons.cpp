@@ -392,11 +392,77 @@ void measure_offsets() {
 
 // autos that came with the library ^^^^^^^
 
-void skillsNew(){
+void skillsNew() {
   M42();
 
-  chassis.pid_turn_set(130, 127);
+  for (int i = 1; i < 4; i++) {
+    chassis.pid_turn_set(128, 127);
+    chassis.pid_wait();
+
+    claw::intake();
+    chassis.pid_drive_set(-16, 127);
+    chassis.pid_wait();
+
+    claw::toggleClamp();
+
+    chassis.pid_drive_set(12, 127);
+    chassis.pid_wait();
+
+    chassis.pid_turn_set(215, 85);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(-28, 80 - (12 * i));
+
+    lift::setPosition((-100 * i) -320, 127);
+
+    pros::delay(2000);
+
+    chassis.pid_wait();
+
+    lift::setPosition(-300, 127);
+
+    pros::delay(500);
+
+    claw::stopIntake();
+    claw::toggleClamp();
+
+    chassis.pid_drive_set(28, 127);
+    lift::setPosition(0, 127);
+
+    chassis.pid_wait();
+  }
+
+  chassis.pid_turn_set(70, 127);
   chassis.pid_wait();
+
+  chassis.pid_drive_set(60, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(40, 127);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(15, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(0, 127);
+  chassis.pid_wait();
+
+  intake.move(127);
+
+  chassis.pid_drive_set(14, 70);
+  chassis.pid_wait();
+
+  pros::delay(2000);
+
+  chassis.pid_turn_set(-15, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(-120, 127);
+
+  chassis.pid_drive_set(-25, 127);
+  chassis.pid_wait();
+
+  flipper::set(true);
 }
 
 void skills() {
@@ -619,7 +685,7 @@ void M42() {
   // flip
   flipper::set(true);
 
-  pros::delay(500);
+  pros::delay(1100);
 
   // unflip
   flipper::set(false);
@@ -647,13 +713,13 @@ void M42() {
   claw::intake();
 
   chassis.pid_drive_set(-12, 127);
-  chassis.pid_wait_until(-10);
+  chassis.pid_wait_until(-8);
 
   // grab the pin/cup
   claw::toggleClamp();
-  claw::stopIntake();
 
   chassis.pid_wait();
+  claw::stopIntake();
 
   lift::setPosition(-200, 127);  // lift to get the pin/cup off the ground
 
@@ -696,7 +762,7 @@ void M42() {
   // grab then lift
   claw::toggleClamp();
 
-  lift::setPosition(-300, 127);
+  lift::setPosition(-320, 127);
 
   pros::delay(300);
   claw::stopIntake();
@@ -717,8 +783,10 @@ void M42() {
 
   pros::delay(500);
 
+  lift::setPosition(0, 127);
+
   // drive off
-  chassis.pid_drive_set(25, 127);
+  chassis.pid_drive_set(27, 127);
   chassis.pid_wait();
 }
 
@@ -899,7 +967,7 @@ void N4() {
   chassis.pid_turn_set(-140, 127);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-16, 127);
+  chassis.pid_drive_set(-14, 127);
   chassis.pid_wait_until(-12);
 
   lift::setPosition(-100, 127);
@@ -933,7 +1001,7 @@ void NM3New() {
   // flip
   flipper::set(true);
 
-  pros::delay(500);
+  pros::delay(1100);
 
   // unflip
   flipper::set(false);
@@ -960,14 +1028,14 @@ void NM3New() {
 
   chassis.pid_drive_set(-4, 100);
   chassis.pid_wait();
-  
+
   claw::toggleClamp();
   lift::setPosition(-30, 127);
 
   pros::delay(400);
 
   // back out from grabbing it
-  chassis.pid_drive_set(18, 127);
+  chassis.pid_drive_set(16, 127);
   chassis.pid_wait();
 
   lift::setPosition(-220, 127);
@@ -985,30 +1053,32 @@ void NM3New() {
 
   claw::toggleClamp();
 
-  chassis.pid_drive_set(26, 127);
+  chassis.pid_drive_set(22, 127);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(-157, 127);
+  chassis.pid_turn_set(-165, 127);
   chassis.pid_wait();
 
   claw::toggleClamp();
   claw::intake();
 
   // drive into 2nd wall pin
-  chassis.pid_drive_set(-18, 80);
+  chassis.pid_drive_set(-18, 40);
   chassis.pid_wait();
 
+  return;
   pros::delay(500);
 
   chassis.pid_drive_set(16, 120);
   chassis.pid_wait();
+
 
   lift::setPosition(-250, 127);
 
   chassis.pid_turn_set(-218, 127);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-10, 127);
+  chassis.pid_drive_set(-8, 127);
 
   lift::setPosition(-20, 127);
 

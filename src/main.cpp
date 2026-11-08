@@ -58,9 +58,9 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    {"Skills", skillsNew},
-    {"NM3", NM3New},
     {"M4", M42},
+    {"NM4", NM3New},
+    {"Skills", skillsNew},
     {"M2+2", M2plus2},
     //{"4 NM", fourNM},
     //{"Skills", skills},
