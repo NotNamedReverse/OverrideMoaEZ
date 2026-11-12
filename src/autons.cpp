@@ -683,14 +683,14 @@ void M42() {
   pros::delay(300);
 
   // turn for next pin/cup
-  chassis.pid_turn_set(70, 100);
+  chassis.pid_turn_set(70, 70);
   chassis.pid_wait();
 
   // spin intake
   claw::intake();
 
   // drive to intake
-  chassis.pid_drive_set(-28, 100);
+  chassis.pid_drive_set(-28, 70);
   chassis.pid_wait_until(-20);
 
   // grab then lift

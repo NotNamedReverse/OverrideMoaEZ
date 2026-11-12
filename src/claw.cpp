@@ -11,7 +11,7 @@ namespace claw{
     {
         isClamped = !isClamped;
 
-        clawClamp.move_absolute(isClamped ? 145 : 0, 127);
+        clawClamp.move_absolute(isClamped ? 160 : 0, 127);
     }
 
     void intake()
@@ -28,8 +28,32 @@ namespace claw{
     void opControl()
     {
         // toggle if the claw is clamped or not
-        if (master.get_digital_new_press(DIGITAL_L2))
+        if (master.get_digital(DIGITAL_L2))
         {
+            if (!clawButtonPressed)
+            {
+                clawButtonPressed = true;
+            }
+            
+            clawPressTime++;
+
+            if (clawPressTime >= 45)
+            {
+                clawClamp.move(-20);
+            }
+        }
+
+        if (!master.get_digital(DIGITAL_L2) && clawButtonPressed)
+        {
+            clawButtonPressed = false;
+
+            clawPressTime = 0;
+
+            if (clawPressTime >= 45)
+            {
+                clawClamp.move(0);
+            }
+
             toggleClamp();
         }
 
