@@ -28,6 +28,13 @@ namespace claw{
     void opControl()
     {
         // toggle if the claw is clamped or not
+
+        if (master.get_digital_new_press(DIGITAL_Y))
+        {
+            toggleClamp();
+        }
+
+        /* emergency claw release thing
         if (master.get_digital(DIGITAL_Y))
         {
             if (!clawButtonPressed)
@@ -56,6 +63,7 @@ namespace claw{
 
             toggleClamp();
         }
+        */
 
         if (master.get_digital(DIGITAL_RIGHT))
         {

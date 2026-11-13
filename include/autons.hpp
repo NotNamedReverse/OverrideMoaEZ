@@ -25,6 +25,9 @@ void measure_offsets();
 void skillsNew();
 
 void skills();
+
+void M4W();
+
 void M2plus2();
 void M42();
 void fourNM();
