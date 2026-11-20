@@ -395,6 +395,7 @@ void measure_offsets() {
 void skillsNew() {
   M42();
 
+  // after running our m4 auto; repeatedly matchload then stack
   for (int i = 1; i < 4; i++) {
     chassis.pid_turn_set(128, 127);
     chassis.pid_wait();
@@ -432,6 +433,8 @@ void skillsNew() {
     chassis.pid_wait();
   }
 
+  // leave to go to parking zone
+
   chassis.pid_turn_set(70, 127);
   chassis.pid_wait();
 
@@ -444,6 +447,7 @@ void skillsNew() {
   chassis.pid_drive_set(15, 127);
   chassis.pid_wait();
 
+  // attempt to intake a pin to stack on parking goal
   chassis.pid_turn_set(0, 127);
   chassis.pid_wait();
 
@@ -459,6 +463,7 @@ void skillsNew() {
 
   lift::setPosition(-120, 127);
 
+  // try to flip with any remaining time
   chassis.pid_drive_set(-25, 127);
   chassis.pid_wait();
 
