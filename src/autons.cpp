@@ -392,6 +392,275 @@ void measure_offsets() {
 
 // autos that came with the library ^^^^^^^
 
+void M5() {
+  // unlock spinner; drops preload
+  toggleSpinner.move(-127);
+  pros::delay(150);
+
+  toggleSpinner.move(0);
+
+  claw::intake();
+
+  // turn to grab the pin cup on wall
+  chassis.pid_turn_set(-18, 127);
+  chassis.pid_wait();
+
+  // drive into it then clamp
+  chassis.pid_drive_set(-4, 127);
+  chassis.pid_wait();
+
+  claw::toggleClamp();
+
+  // turn away
+  chassis.pid_turn_set(20, 127);
+  chassis.pid_wait();
+
+  // drive away so we can align with the goal
+  chassis.pid_drive_set(8, 127);
+  chassis.pid_wait();
+
+  claw::stopIntake();
+
+  // lift for placing above preload
+  lift::setPosition(-200, 127);
+
+  // turn to face goal
+  chassis.pid_turn_set(80, 127);
+  chassis.pid_wait();
+
+  // drive into goal
+  chassis.pid_drive_set(-7, 127);
+  chassis.pid_wait_until(-6);
+
+  // drop into
+  lift::setPosition(-50, 127);
+
+  pros::delay(800);
+
+  claw::toggleClamp();
+
+  // drive back to standing pin/cup
+  chassis.pid_drive_set(8, 127);
+  chassis.pid_wait();
+
+  claw::intake();
+
+  // turn and grab
+  lift::setPosition(20, 127);
+  chassis.pid_turn_set(170, 127);
+  chassis.pid_wait();
+
+  // drive to grab
+  chassis.pid_drive_set(-4, 127);
+  chassis.pid_wait();
+
+  // clamp/grab
+  claw::toggleClamp();
+
+  // lift to score height
+  lift::setPosition(-300, 127);
+
+  return;
+
+
+  chassis.pid_turn_set(60, 127);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-10, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(-210, 127);
+
+  pros::delay(400);
+
+  claw::toggleClamp();
+
+  pros::delay(200);
+
+  lift::setPosition(20, 127);
+
+  chassis.pid_drive_set(8, 127);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(102, 127);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-24, 127);
+  chassis.pid_wait_quick();
+
+  claw::toggleClamp();
+
+  lift::setPosition(-270, 127);
+
+  chassis.pid_turn_set(22, 127);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-45, 100);
+  chassis.pid_wait();
+
+  lift::setPosition(0, 127);
+
+  pros::delay(200);
+
+  claw::toggleClamp();
+
+  pros::delay(200);
+
+  // drive back from final goal
+  chassis.pid_drive_set(4, 127);
+  chassis.pid_wait_quick_chain();
+
+  // turn to toggle
+  chassis.pid_turn_set(-40, 127);
+  chassis.pid_wait_quick_chain();
+
+  // final toggle switch
+  chassis.pid_drive_set(-20, 127);
+
+  chassis.pid_wait_quick();
+
+  chassis.pid_drive_set(15, 127);
+}
+
+void solo() {
+  // unlock spinner; drops preload
+  toggleSpinner.move(-127);
+  pros::delay(150);
+
+  toggleSpinner.move(0);
+
+  claw::intake();
+
+  // turn to grab the pin cup on wall
+  chassis.pid_turn_set(-18, 127);
+  chassis.pid_wait();
+
+  // drive into it then clamp
+  chassis.pid_drive_set(-4, 127);
+  chassis.pid_wait();
+
+  claw::toggleClamp();
+
+  // turn away
+  chassis.pid_turn_set(20, 127);
+  chassis.pid_wait();
+
+  // drive away so we can align with the goal
+  chassis.pid_drive_set(8, 127);
+  chassis.pid_wait();
+
+  claw::stopIntake();
+
+  // lift for placing above preload
+  lift::setPosition(-200, 127);
+
+  // turn to face goal
+  chassis.pid_turn_set(80, 127);
+  chassis.pid_wait();
+
+  // drive into goal
+  chassis.pid_drive_set(-7, 127);
+  chassis.pid_wait_quick();
+
+  // drop into
+  lift::setPosition(-50, 127);
+
+  pros::delay(800);
+
+  claw::toggleClamp();
+
+  // drive back to standing pin/cup
+  chassis.pid_drive_set(8, 127);
+  chassis.pid_wait();
+
+  claw::intake();
+
+  // turn and grab
+  lift::setPosition(20, 127);
+  chassis.pid_turn_set(175, 127);
+  chassis.pid_wait();
+
+  // drive to grab
+  chassis.pid_drive_set(-4, 127);
+  chassis.pid_wait();
+
+  // clamp/grab
+  claw::toggleClamp();
+
+  // lift to score height
+  lift::setPosition(-200, 127);
+
+  // turn for next goal
+  chassis.pid_turn_set(143, 127);
+  chassis.pid_wait();
+
+  // drive to said goal
+  chassis.pid_drive_set(-23, 127);
+  chassis.pid_wait_quick_chain();
+
+  // drop
+
+  lift::setPosition(10, 127);
+
+  pros::delay(600);
+
+  // unclamp
+  claw::toggleClamp();
+
+  claw::stopIntake();
+
+  // drive off
+  chassis.pid_drive_set(10, 127);
+  chassis.pid_wait();
+
+  // turn to next standing pin/cup
+  chassis.pid_turn_set(85, 127);
+  chassis.pid_wait();
+
+  // drive to grab it
+  claw::intake();
+  chassis.pid_drive_set(-16, 127);
+  chassis.pid_wait_quick();
+
+  claw::toggleClamp();
+
+  // turn to final goal
+  chassis.pid_turn_set(24, 127);
+  chassis.pid_wait();
+
+  lift::setPosition(-280, 127);
+
+  // drive to final goal
+  chassis.pid_drive_set(-48, 127);
+  chassis.pid_wait_until(-38);
+
+  lift::setPosition(-20, 127);
+
+  // bot arrived to final goal; unclamp
+  chassis.pid_wait_quick();
+
+  pros::delay(200);
+
+  claw::toggleClamp();
+
+  pros::delay(200);
+
+  // drive back from final goal
+  chassis.pid_drive_set(4, 127);
+  chassis.pid_wait_quick_chain();
+
+  // turn to toggle
+  chassis.pid_turn_set(-40, 127);
+  chassis.pid_wait_quick_chain();
+
+  // final toggle switch
+  chassis.pid_drive_set(-20, 127);
+
+  chassis.pid_wait_quick();
+
+  chassis.pid_drive_set(15, 127);
+}
+
 void skillsNew() {
   M42();
 
@@ -414,7 +683,7 @@ void skillsNew() {
 
     chassis.pid_drive_set(-28, 80 - (12 * i));
 
-    lift::setPosition((-100 * i) -320, 127);
+    lift::setPosition((-100 * i) - 320, 127);
 
     pros::delay(2000);
 
@@ -547,9 +816,8 @@ void skills() {
   chassis.pid_wait();
 }
 
-void M4W()
-{
-    // unlock spinner slightly
+void M4W() {
+  // unlock spinner slightly
   toggleSpinner.move(-127);
   pros::delay(150);
 
@@ -725,10 +993,9 @@ void M2plus2() {
   chassis.pid_drive_set(-38, 127);
   chassis.pid_wait_until(-8);
 
-  
   // lift while driving
   lift::setPosition(-200, 127);
-  
+
   chassis.pid_wait();
 
   // lower and place
@@ -1183,9 +1450,9 @@ void NM3New() {
 
   chassis.pid_drive_set(24, 127);
   chassis.pid_wait();
-  
+
   claw::toggleClamp();
-  
+
   chassis.pid_turn_set(45, 127);
   chassis.pid_wait();
 }

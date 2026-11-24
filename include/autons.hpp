@@ -22,6 +22,8 @@ void odom_boomerang_injected_pure_pursuit_example();
 void measure_offsets();
 
 
+void M5();
+void solo();
 void skillsNew();
 
 void skills();
